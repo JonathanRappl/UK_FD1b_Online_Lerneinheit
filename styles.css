@@ -1,0 +1,42 @@
+/* ── Einheitliches Aussehen der Lerneinheit ─────────────────────────── */
+
+/* Byte-/Bit-Darstellungen (z. B. Phase 0) */
+.byte-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0.75rem 0;
+}
+
+.byte-cell {
+  font-family: var(--bs-font-monospace, monospace);
+  text-align: center;
+  border: 1px solid var(--bs-border-color, #d0d0d0);
+  border-radius: 8px;
+  padding: 6px 8px;
+  min-width: 80px;
+  background: var(--bs-body-bg, #fff);
+}
+
+.byte-cell .bits {
+  font-size: 0.8em;
+  letter-spacing: 1px;
+  color: var(--bs-body-color, #333);
+}
+
+.byte-cell .dec {
+  color: #1a8a4a;
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+.byte-cell .char {
+  font-size: 1.3em;
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+/* Interaktive Steuerelemente etwas Luft geben */
+.cell-output form {
+  margin-bottom: 0.5rem;
+}

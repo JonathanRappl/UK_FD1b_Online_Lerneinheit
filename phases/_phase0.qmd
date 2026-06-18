@@ -1,0 +1,78 @@
+## Eine geheime Nachricht {#sec-start}
+
+Ein Computer kennt im Innersten nur zwei Zustände: Strom **an** oder **aus** — also `1` oder `0`.
+Ein einzelnes solches Zeichen nennt man ein **Bit**. Jede Nachricht, jedes Foto, jedes Lied muss
+sich also aus lauter Nullen und Einsen zusammensetzen lassen. Aber wie soll aus `0` und `1`
+jemals ein Wort werden?
+
+Schauen wir uns zuerst eine echte Nachricht an, so wie der Computer sie „sieht".
+
+```{ojs}
+//| echo: false
+secret = "Alles ist Zahl"
+bytes = Array.from(secret).map(c => c.charCodeAt(0))
+```
+
+::: {.callout-note}
+## Aufgabe 1: Was könnte das bedeuten?
+
+Unten in der grünen Box siehst du eine Nachricht, so wie sie im Computer gespeichert ist —
+nur Nullen und Einsen, in Blöcke aufgeteilt.
+
+Überlegt **zu zweit**, ohne schon etwas anzuklicken:
+
+- Fällt euch ein **Muster** auf? (Tipp: Wie viele Ziffern hat jeder Block?)
+- Wofür könnte wohl **ein einzelner Block** stehen?
+- Schreibt eure Vermutung kurz auf. Ihr müsst noch nichts beweisen — Raten ist ausdrücklich erlaubt!
+:::
+
+::: {.callout-tip}
+## Ausprobieren: Nachricht aufdecken
+
+Hier ist die geheime Nachricht. Mit dem Schalter kannst du sie **Schritt für Schritt** aufdecken —
+aber erst, nachdem ihr in Aufgabe 1 eure Vermutung notiert habt!
+
+```{ojs}
+//| echo: false
+viewof aufdeckung = Inputs.radio(
+  new Map([
+    ["nur Bits (0 und 1)", 0],
+    ["Bits + Dezimalzahl", 1],
+    ["Bits + Zahl + Zeichen", 2]
+  ]),
+  { label: "Aufdecken:", value: 0 }
+)
+```
+
+```{ojs}
+//| echo: false
+html`<div class="byte-grid">${
+  bytes.map((b, i) => html`<div class="byte-cell">
+    <div class="bits">${b.toString(2).padStart(8, "0")}</div>
+    ${aufdeckung >= 1 ? html`<div class="dec">${b}</div>` : ""}
+    ${aufdeckung >= 2 ? html`<div class="char">${secret[i] === " " ? "␣" : secret[i]}</div>` : ""}
+  </div>`)
+}</div>`
+```
+:::
+
+Habt ihr es erraten? Jeder Block aus **8 Bits** steht für **genau ein Zeichen** — einen Buchstaben
+oder ein Leerzeichen. Wie der Computer von der Zahl zum Buchstaben kommt, schauen wir uns gleich
+genauer an. Doch zuerst lohnt sich ein Blick auf diese Achterblöcke selbst.
+
+::: {.callout-caution}
+## Differenzierung ↑: Wie viele Zeichen sind überhaupt möglich?
+
+Jeder Block hat 8 Bits, und jedes Bit kann `0` oder `1` sein.
+
+- Wie viele **verschiedene** Achterblöcke gibt es dadurch insgesamt?
+- Reicht das aus, um alle Buchstaben (gross und klein), Ziffern und Satzzeichen zu speichern?
+
+::: {.callout-note collapse="true"}
+## Lösung
+
+Bei 8 Bits mit je 2 Möglichkeiten sind das $2^8 = 256$ verschiedene Blöcke. Das genügt locker für
+das deutsche Alphabet in Gross- und Kleinschreibung, die Ziffern `0`–`9` und viele Satzzeichen.
+(Für *alle* Schriftzeichen der Welt — etwa 中, 😀 oder ❤ — reicht es allerdings nicht. Dazu später mehr.)
+:::
+:::

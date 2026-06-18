@@ -1,0 +1,9 @@
+/.quarto/
+**/*.quarto_ipynb
+
+# Quarto build output (wird per GitHub Action auf gh-pages publiziert)
+/_site/
+
+# OS / Editor
+.DS_Store
+*.swp

@@ -1,0 +1,26 @@
+---
+title: "Alles ist Zahl"
+subtitle: "Wie Texte und Bilder zu Bits werden"
+---
+
+Willkommen zu dieser kleinen Lerneinheit. In den nächsten 60–90 Minuten findest du heraus,
+wie ein Computer aus lauter Nullen und Einsen ganze Wörter und sogar Bilder zaubert — und am
+Ende baust du dein eigenes Pixel-Werk.
+
+Du kannst die Einheit in deinem eigenen Tempo durcharbeiten. Alles, was du brauchst, ist
+direkt auf dieser Seite — zum Lesen, Ausprobieren und Knobeln.
+
+::: {.callout-important}
+## So liest du diese Seite
+
+Achte auf die farbigen Boxen — sie haben immer dieselbe Bedeutung:
+
+- **Blaue Box** → eine **Aufgabe**, die du bearbeiten sollst.
+- **Grüne Box** → etwas zum **Ausprobieren** (hier wird die Seite interaktiv).
+- **Orange Box** → eine **Differenzierung**: entweder eine Hilfe, wenn du nicht weiterkommst, oder eine Zusatzaufgabe, wenn du schneller bist.
+- **Rote Box** (wie diese) → ein **Merksatz**, den du dir einprägen solltest.
+:::
+
+{{< include phases/_phase0.qmd >}}
+
+<!-- Weitere Phasen werden hier Schritt für Schritt ergänzt. -->

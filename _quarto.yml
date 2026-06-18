@@ -1,0 +1,25 @@
+project:
+  type: website
+  output-dir: _site
+  render:
+    - index.qmd
+
+website:
+  title: "Alles ist Zahl"
+  page-footer:
+    center: "Online-Lerneinheit · Datenrepräsentation · erstellt mit [Quarto](https://quarto.org)"
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+    toc-location: right
+    toc-title: "Übersicht"
+    toc-depth: 2
+    number-sections: false
+    smooth-scroll: true
+    code-fold: true
+    code-tools: true
+    highlight-style: github
+    lang: de
