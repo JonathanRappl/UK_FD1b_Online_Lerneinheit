@@ -1,7 +1,7 @@
 # Arbeitsjournal
 
 Sehr reduziertes Protokoll der Arbeitsschritte, groben Änderungen und Überlegungen, damit der
-Arbeitsprozess nachvollziehbar bleibt. Neueste Einträge oben.
+Arbeitsprozess nachvollziehbar bleibt.
 
 ## 2026-06-18
 
@@ -27,3 +27,12 @@ Arbeitsprozess nachvollziehbar bleibt. Neueste Einträge oben.
   Callout-Icons global entfernt; Eingabefelder mit Auto-Feedback bei Aufgaben mit klarer Lösung;
   Stift-und-Papier-Hinweis am Anfang; Stepper-Labels weniger verräterisch gemacht (Aufgabenstellung
   soll nicht zu viel vorwegnehmen).
+- **Interaktivität von ObservableJS auf Vanilla-JS umgestellt.** Grund: OJS-Eingabefeld
+  reagierte beim Nutzer nicht (OJS lädt `Inputs` per ESM aus dem Netz — schlägt u. a. beim Öffnen
+  über `file://` fehl). Vanilla-JS hat keine solche Abhängigkeit und läuft überall. Feedback-Stil
+  am bestehenden SQL-Beispiel orientiert (Quarto_Scripts, Branch `sql_test`, `sql/index.qmd`):
+  grüne `show-correct` / gelbe `show-wrong` Boxen mit farbigem Rand und ausführlichem Text + Tipp.
+- **Wiederverwendbare Widgets** angelegt in `widgets.html` (via `include-after-body`):
+  Aufdeck-Stepper (`setReveal`), Zahlen-Check (`checkNumber`, mit gezielten Hinweisen je
+  Fehlantwort über `.msg-hint[data-value]`), Multiple-Choice (`mcCheck`, wie SQL). Styles in
+  `styles.css`. Phase 0 entsprechend umgebaut.
