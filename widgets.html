@@ -1,0 +1,76 @@
+<script>
+// ── Aufdeck-Stepper (schrittweises Aufdecken einer Nachricht) ─────────
+function _byteCell(ch, level) {
+  var code = ch.charCodeAt(0);
+  var bits = code.toString(2).padStart(8, '0');
+  var html = '<div class="byte-cell"><div class="bits">' + bits + '</div>';
+  if (level >= 1) html += '<div class="dec">' + code + '</div>';
+  if (level >= 2) html += '<div class="char">' + (ch === ' ' ? '␣' : ch) + '</div>';
+  return html + '</div>';
+}
+function _renderReveal(w) {
+  var secret = w.dataset.secret;
+  var level = parseInt(w.dataset.level || '0', 10);
+  var grid = w.querySelector('.byte-grid');
+  grid.innerHTML = Array.from(secret).map(function (c) { return _byteCell(c, level); }).join('');
+}
+function setReveal(id, level) {
+  var w = document.getElementById(id);
+  w.dataset.level = level;
+  w.querySelectorAll('.reveal-btn').forEach(function (b, i) {
+    b.classList.toggle('active', i === level);
+  });
+  _renderReveal(w);
+}
+
+// ── Zahlen-Eingabe prüfen ─────────────────────────────────────────────
+function checkNumber(id) {
+  var w = document.getElementById(id);
+  var fb = w.querySelector('.answer-feedback');
+  var raw = w.querySelector('.answer-input').value.trim().replace(/['.\s]/g, '');
+  if (raw === '') { fb.className = 'answer-feedback'; fb.innerHTML = ''; return; }
+  var store = w.querySelector('.answer-store');
+  if (Number(raw) === Number(w.dataset.answer)) {
+    fb.className = 'answer-feedback show-correct';
+    fb.innerHTML = store.querySelector('.msg-correct').innerHTML;
+    return;
+  }
+  var hint = store.querySelector('.msg-hint[data-value="' + raw + '"]');
+  fb.className = 'answer-feedback show-wrong';
+  fb.innerHTML = hint ? hint.innerHTML : store.querySelector('.msg-wrong').innerHTML;
+}
+
+// ── Multiple-Choice prüfen (wie im SQL-Beispiel) ──────────────────────
+function mcCheck(btn, id) {
+  var w = document.getElementById(id);
+  if (w.dataset.answered) return;
+  w.dataset.answered = '1';
+  var correct = btn.dataset.correct === '1';
+  w.querySelectorAll('.mc-btn').forEach(function (b) { b.disabled = true; });
+  var fb = w.querySelector('.mc-feedback');
+  if (correct) {
+    btn.classList.add('mc-correct');
+    fb.className = 'mc-feedback show-correct';
+    fb.innerHTML = w.querySelector('.mc-correct-text').innerHTML;
+  } else {
+    btn.classList.add('mc-wrong');
+    w.querySelectorAll('.mc-btn').forEach(function (b) {
+      if (b.dataset.correct === '1') b.classList.add('mc-correct');
+    });
+    fb.className = 'mc-feedback show-wrong';
+    fb.innerHTML = w.querySelector('.mc-wrong-text').innerHTML;
+  }
+}
+
+// ── Initialisierung ───────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.reveal-widget').forEach(_renderReveal);
+  document.querySelectorAll('.answer-widget').forEach(function (w) {
+    var inp = w.querySelector('.answer-input');
+    if (!inp) return;
+    inp.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') { e.preventDefault(); checkNumber(w.id); }
+    });
+  });
+});
+</script>

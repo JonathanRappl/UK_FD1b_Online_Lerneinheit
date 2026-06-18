@@ -15,6 +15,7 @@ format:
     theme: cosmo
     css: styles.css
     callout-icon: false
+    include-after-body: widgets.html
     toc: true
     toc-location: right
     toc-title: "Übersicht"

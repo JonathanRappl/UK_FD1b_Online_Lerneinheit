@@ -36,19 +36,114 @@
   margin-top: 2px;
 }
 
-/* Interaktive Steuerelemente etwas Luft geben */
-.cell-output form {
-  margin-bottom: 0.5rem;
+.hidden { display: none !important; }
+
+/* ── Aufdeck-Stepper ────────────────────────────────────────────────── */
+.reveal-controls {
+  display: flex;
+  gap: 0.5em;
+  flex-wrap: wrap;
+  margin-bottom: 0.6em;
 }
 
-/* Rückmeldungen bei Eingabefeldern */
-.fb-ok {
-  color: #1a8a4a;
+.reveal-btn {
+  padding: 0.4em 0.9em;
+  border: 2px solid #d0d0d0;
+  border-radius: 8px;
+  background: #fafafa;
+  cursor: pointer;
+  font-size: 0.9em;
+  font-family: inherit;
+}
+
+.reveal-btn:hover { background: #eef2f7; }
+
+.reveal-btn.active {
+  background: #cfe2ff;
+  border-color: #6ea8fe;
+  color: #084298;
   font-weight: 600;
-  margin-top: 4px;
 }
 
-.fb-no {
-  color: #b25000;
-  margin-top: 4px;
+/* ── Zahlen-Eingabe ─────────────────────────────────────────────────── */
+.answer-row {
+  display: flex;
+  gap: 0.6em;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 0.4em;
+}
+
+.answer-input {
+  font-family: var(--bs-font-monospace, monospace);
+  font-size: 0.95em;
+  padding: 0.45em 0.6em;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  max-width: 160px;
+}
+
+.answer-btn {
+  padding: 0.45em 1.1em;
+  background: #0d6efd;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.92em;
+  font-family: inherit;
+}
+
+.answer-btn:hover { background: #0b5ed7; }
+
+/* ── Multiple-Choice (wie SQL-Beispiel) ─────────────────────────────── */
+.mc-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  margin-top: 0.4em;
+}
+
+.mc-btn {
+  text-align: left;
+  padding: 0.6em 1.1em;
+  border: 2px solid #d0d0d0;
+  border-radius: 8px;
+  background: #fafafa;
+  cursor: pointer;
+  font-size: 0.97em;
+  font-family: inherit;
+  line-height: 1.4;
+}
+
+.mc-btn:hover:not(:disabled) { background: #e8f0fe; border-color: #4a90d9; }
+.mc-btn:disabled { cursor: default; }
+.mc-btn.mc-correct { background: #d4edda; border-color: #28a745; color: #155724; font-weight: 600; }
+.mc-btn.mc-wrong   { background: #f8d7da; border-color: #dc3545; color: #721c24; }
+
+/* ── Gemeinsame Feedback-Boxen (Zahlen-Eingabe + Multiple-Choice) ───── */
+.answer-feedback,
+.mc-feedback {
+  margin-top: 0.8em;
+  padding: 0.7em 1em;
+  border-radius: 8px;
+  font-size: 0.95em;
+  line-height: 1.55;
+  display: none;
+}
+
+.answer-feedback.show-correct,
+.mc-feedback.show-correct {
+  display: block;
+  background: #d4edda;
+  border-left: 4px solid #28a745;
+  color: #155724;
+}
+
+.answer-feedback.show-wrong,
+.mc-feedback.show-wrong {
+  display: block;
+  background: #fff3cd;
+  border-left: 4px solid #ffc107;
+  color: #7a5a00;
 }
