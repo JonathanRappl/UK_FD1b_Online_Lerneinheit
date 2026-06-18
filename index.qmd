@@ -24,3 +24,21 @@ Achte auf die farbigen Boxen — sie haben immer dieselbe Bedeutung:
 {{< include phases/_phase0.qmd >}}
 
 <!-- Weitere Phasen werden hier Schritt für Schritt ergänzt. -->
+
+## Transparenz & Quellen {#sec-transparenz}
+
+Diese Lerneinheit entstand im Rahmen eines Leistungsnachweises in Fachdidaktik. Mir ist
+wichtig, offenzulegen, wie sie zustande gekommen ist:
+
+- **Bestehendes Unterrichtsmaterial:** Die Einheit übersetzt von mir bereits im Unterricht
+  eingesetztes Material zur Datenrepräsentation in ein interaktives Format. Die zugrunde
+  liegenden Vorlagen (u. a. die *Werkstatt zur Datenrepräsentation* von Beat Trachsler, KSK,
+  sowie Materialien zu Lauflängen- und Huffman-Codierung und zum Parity-Check) werden im
+  Anhang der schriftlichen Ausarbeitung vollständig nachgewiesen.
+- **KI-Unterstützung:** Bei der didaktischen Konzeption sowie bei der technischen Umsetzung
+  (Quarto, ObservableJS) habe ich **[Claude](https://www.anthropic.com/claude) (Anthropic),
+  Modell Opus 4.8, über Claude Code** als Assistenz eingesetzt. Auswahl der Inhalte,
+  didaktische Entscheidungen und die finale Prüfung lagen bei mir.
+- **Werkzeug & Hosting:** Die Seite ist mit [Quarto](https://quarto.org) gebaut und wird über
+  GitHub Pages gehostet. Ein erklärtes Ziel des Projekts war es, die Möglichkeiten und
+  **Grenzen der Interaktivität** einer solchen statisch gehosteten Quarto-Website auszuloten.
