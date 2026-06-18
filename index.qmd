@@ -10,6 +10,10 @@ Ende baust du dein eigenes Pixel-Werk.
 Du kannst die Einheit in deinem eigenen Tempo durcharbeiten. Alles, was du brauchst, ist
 direkt auf dieser Seite — zum Lesen, Ausprobieren und Knobeln.
 
+**Hol dir zuerst Stift und Papier.** Du wirst immer wieder gebeten, etwas zu vermuten, zu
+notieren oder auszurechnen. Wer seine Gedanken aufschreibt, kommt schneller weiter und behält
+mehr.
+
 ::: {.callout-important}
 ## So liest du diese Seite
 
@@ -17,7 +21,7 @@ Achte auf die farbigen Boxen — sie haben immer dieselbe Bedeutung:
 
 - **Blaue Box** → eine **Aufgabe**, die du bearbeiten sollst.
 - **Grüne Box** → etwas zum **Ausprobieren** (hier wird die Seite interaktiv).
-- **Orange Box** → eine **Differenzierung**: entweder eine Hilfe, wenn du nicht weiterkommst, oder eine Zusatzaufgabe, wenn du schneller bist.
+- **Orange Box** → entweder eine **Hilfe**, wenn du nicht weiterkommst, oder eine **Challenge**, wenn du schneller bist.
 - **Rote Box** (wie diese) → ein **Merksatz**, den du dir einprägen solltest.
 :::
 

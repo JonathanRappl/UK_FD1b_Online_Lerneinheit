@@ -14,31 +14,31 @@ bytes = Array.from(secret).map(c => c.charCodeAt(0))
 ```
 
 ::: {.callout-note}
-## Aufgabe 1: Was könnte das bedeuten?
+## Aufgabe 1: Was steckt dahinter?
 
-Unten in der grünen Box siehst du eine Nachricht, so wie sie im Computer gespeichert ist —
-nur Nullen und Einsen, in Blöcke aufgeteilt.
+Unten in der grünen Box siehst du eine Nachricht, so wie sie im Computer gespeichert ist.
 
-Überlegt **zu zweit**, ohne schon etwas anzuklicken:
+Überlegt **zu zweit**, bevor ihr etwas anklickt, und haltet eure Vermutungen auf Papier fest:
 
-- Fällt euch ein **Muster** auf? (Tipp: Wie viele Ziffern hat jeder Block?)
-- Wofür könnte wohl **ein einzelner Block** stehen?
-- Schreibt eure Vermutung kurz auf. Ihr müsst noch nichts beweisen — Raten ist ausdrücklich erlaubt!
+- Fällt euch ein **Muster** auf?
+- Was könnte hier wohl gespeichert sein?
+
+Raten ist ausdrücklich erlaubt — ihr müsst noch nichts beweisen.
 :::
 
 ::: {.callout-tip}
 ## Ausprobieren: Nachricht aufdecken
 
-Hier ist die geheime Nachricht. Mit dem Schalter kannst du sie **Schritt für Schritt** aufdecken —
-aber erst, nachdem ihr in Aufgabe 1 eure Vermutung notiert habt!
+Mit dem Schalter kannst du die Nachricht **Schritt für Schritt** weiter aufdecken — aber erst,
+nachdem ihr in Aufgabe 1 eure Vermutung notiert habt!
 
 ```{ojs}
 //| echo: false
 viewof aufdeckung = Inputs.radio(
   new Map([
-    ["nur Bits (0 und 1)", 0],
-    ["Bits + Dezimalzahl", 1],
-    ["Bits + Zahl + Zeichen", 2]
+    ["so wie gespeichert", 0],
+    ["einen Schritt weiter", 1],
+    ["ganz aufdecken", 2]
   ]),
   { label: "Aufdecken:", value: 0 }
 )
@@ -56,23 +56,54 @@ html`<div class="byte-grid">${
 ```
 :::
 
-Habt ihr es erraten? Jeder Block aus **8 Bits** steht für **genau ein Zeichen** — einen Buchstaben
-oder ein Leerzeichen. Wie der Computer von der Zahl zum Buchstaben kommt, schauen wir uns gleich
-genauer an. Doch zuerst lohnt sich ein Blick auf diese Achterblöcke selbst.
+Habt ihr es erraten? Jeder Block aus **8 Bits** steht für **genau ein Zeichen**. Wie der Computer
+von der Bitfolge zum Buchstaben kommt, schauen wir uns gleich genauer an. Doch zuerst lohnt sich
+ein Blick auf diese Achterblöcke selbst.
 
 ::: {.callout-caution}
-## Differenzierung ↑: Wie viele Zeichen sind überhaupt möglich?
+## Challenge: Wie viele Zeichen sind möglich?
 
 Jeder Block hat 8 Bits, und jedes Bit kann `0` oder `1` sein.
 
-- Wie viele **verschiedene** Achterblöcke gibt es dadurch insgesamt?
-- Reicht das aus, um alle Buchstaben (gross und klein), Ziffern und Satzzeichen zu speichern?
+**Wie viele _verschiedene_ Achterblöcke gibt es dadurch insgesamt?**
 
-::: {.callout-note collapse="true"}
-## Lösung
+```{ojs}
+//| echo: false
+viewof anzahl = Inputs.text({ label: "Anzahl:", placeholder: "z. B. 42", submit: "Prüfen" })
+```
 
-Bei 8 Bits mit je 2 Möglichkeiten sind das $2^8 = 256$ verschiedene Blöcke. Das genügt locker für
-das deutsche Alphabet in Gross- und Kleinschreibung, die Ziffern `0`–`9` und viele Satzzeichen.
-(Für *alle* Schriftzeichen der Welt — etwa 中, 😀 oder ❤ — reicht es allerdings nicht. Dazu später mehr.)
-:::
+```{ojs}
+//| echo: false
+{
+  const raw = (anzahl ?? "").toString().trim().replace(/['.\s]/g, "");
+  if (raw === "") return html`<span></span>`;
+  const n = Number(raw);
+  if (n === 256)
+    return html`<div class="fb-ok">✓ Genau! 2<sup>8</sup> = 256 verschiedene Blöcke.</div>`;
+  if (n === 8)
+    return html`<div class="fb-no">Das ist die Anzahl der <em>Bits</em>. Gesucht ist, wie viele <em>Kombinationen</em> daraus entstehen.</div>`;
+  if (n === 255)
+    return html`<div class="fb-no">Ganz knapp! Vergiss den Block aus lauter Nullen nicht — der zählt auch mit.</div>`;
+  if ([2, 4, 16, 32, 64, 128].includes(n))
+    return html`<div class="fb-no">Auf dem richtigen Weg! Jedes zusätzliche Bit <em>verdoppelt</em> die Anzahl. Fang bei 1 Bit an: 2, dann 4, dann 8 … bis zu 8 Bits.</div>`;
+  return html`<div class="fb-no">Noch nicht. Tipp: Jedes der 8 Bits verdoppelt die Möglichkeiten — rechne 2·2·2·2·2·2·2·2.</div>`;
+}
+```
+
+**Und reicht das aus, um alle Buchstaben (gross und klein), Ziffern und Satzzeichen zu speichern?**
+
+```{ojs}
+//| echo: false
+viewof reicht = Inputs.radio(["Ja", "Nein"], { label: "Deine Einschätzung:" })
+```
+
+```{ojs}
+//| echo: false
+{
+  if (reicht === undefined) return html`<span></span>`;
+  if (reicht === "Ja")
+    return html`<div class="fb-ok">✓ Richtig. Für unser Alphabet, die Ziffern 0–9 und die gängigen Satzzeichen reichen 256 Plätze locker. (Für <em>alle</em> Schriftzeichen der Welt — etwa 中, ❤ oder 😀 — reicht es allerdings nicht. Dazu später mehr.)</div>`;
+  return html`<div class="fb-no">Schau nochmal: Wie viele Buchstaben, Ziffern und Satzzeichen braucht unser Alphabet ungefähr — mehr oder weniger als 256?</div>`;
+}
+```
 :::

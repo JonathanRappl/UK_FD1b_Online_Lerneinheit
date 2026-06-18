@@ -40,3 +40,15 @@
 .cell-output form {
   margin-bottom: 0.5rem;
 }
+
+/* Rückmeldungen bei Eingabefeldern */
+.fb-ok {
+  color: #1a8a4a;
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+.fb-no {
+  color: #b25000;
+  margin-top: 4px;
+}
