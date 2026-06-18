@@ -7,7 +7,8 @@ project:
 website:
   title: "Alles ist Zahl"
   page-footer:
-    center: "Online-Lerneinheit · Datenrepräsentation · erstellt mit [Quarto](https://quarto.org)"
+    left: "Erstellt mit Unterstützung von [Claude](https://www.anthropic.com/claude) (Anthropic)"
+    center: "Online-Lerneinheit · Datenrepräsentation · gebaut mit [Quarto](https://quarto.org)"
 
 format:
   html:
