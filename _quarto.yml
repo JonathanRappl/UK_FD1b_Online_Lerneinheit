@@ -3,9 +3,22 @@ project:
   output-dir: _site
   render:
     - index.qmd
+    - phases/phase0.qmd
+    - phases/phase1.qmd
+    - transparenz.qmd
 
 website:
   title: "Alles ist Zahl"
+  page-navigation: true
+  sidebar:
+    style: floating
+    search: false
+    contents:
+      - text: "Start"
+        href: index.qmd
+      - phases/phase0.qmd
+      - phases/phase1.qmd
+      - transparenz.qmd
   page-footer:
     left: "Erstellt mit Unterstützung von [Claude](https://www.anthropic.com/claude) (Anthropic)"
     center: "Online-Lerneinheit · Datenrepräsentation · gebaut mit [Quarto](https://quarto.org)"

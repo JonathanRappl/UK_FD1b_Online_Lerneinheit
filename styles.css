@@ -65,6 +65,61 @@
   font-weight: 600;
 }
 
+/* ── Binär-Stellenwert (Bits an-/ausschalten) ───────────────────────── */
+.binary-widget {
+  margin: 0.75rem 0;
+  font-family: var(--bs-font-monospace, monospace);
+}
+
+.binary-row {
+  display: flex;
+  gap: 6px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+}
+
+.binary-place {
+  flex: 1 1 0;
+  min-width: 40px;
+  text-align: center;
+  font-size: 0.8em;
+  color: #6c757d;
+  padding-bottom: 4px;
+}
+
+.binary-bit {
+  flex: 1 1 0;
+  min-width: 40px;
+  aspect-ratio: 1 / 1;
+  font-family: inherit;
+  font-size: 1.3em;
+  font-weight: 700;
+  border: 2px solid #d0d0d0;
+  border-radius: 8px;
+  background: #fafafa;
+  color: #adb5bd;
+  cursor: pointer;
+  transition: background 0.1s, color 0.1s, border-color 0.1s;
+}
+
+.binary-bit:hover { border-color: #6ea8fe; }
+
+.binary-bit.on {
+  background: #cfe2ff;
+  border-color: #6ea8fe;
+  color: #084298;
+}
+
+.binary-result {
+  margin-top: 0.8em;
+  font-size: 1.05em;
+}
+
+.binary-result strong {
+  font-size: 1.2em;
+  color: #1a8a4a;
+}
+
 /* ── Zahlen-Eingabe ─────────────────────────────────────────────────── */
 .answer-row {
   display: flex;

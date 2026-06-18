@@ -1,0 +1,135 @@
+---
+title: "Vom Bit zur Zahl"
+---
+
+Zu Beginn hast du gesehen: Der Computer speichert alles in Blöcken aus **8 Bits**, und
+jeder Block steht für genau ein Zeichen. Aber ein Block wie `01000001` ist zunächst nur eine
+Folge von Nullen und Einsen. Bevor daraus ein Buchstabe wird, macht der Computer einen
+Zwischenschritt: Er liest den Block als **Zahl**. Wie das funktioniert, schauen wir uns jetzt an
+— und das Prinzip dahinter kennst du längst.
+
+Nimm unsere ganz normale Zahl **365**. Sie bedeutet nicht einfach „drei, sechs, fünf", sondern:
+
+$$ 365 = 3 \cdot 100 + 6 \cdot 10 + 5 \cdot 1 $$
+
+Entscheidend ist die **Stelle**: Ganz rechts stehen die Einer, eine Stelle weiter links die
+Zehner, dann die Hunderter. Jede Stelle nach links ist **zehnmal** so viel wert wie die
+vorige — weil wir zehn Ziffern (`0`–`9`) zur Verfügung haben.
+
+Im Binärsystem gibt es nur **zwei** Ziffern, `0` und `1`. Deshalb ist hier jede Stelle nach
+links nicht zehnmal, sondern nur **zweimal** so viel wert wie die vorige: 1, 2, 4, 8, 16, 32,
+64, 128. Eine `1` an einer Stelle bedeutet „dieser Wert zählt mit", eine `0` bedeutet „dieser
+Wert zählt nicht". Den Rest erledigt eine einfache Addition.
+
+::: {.callout-tip}
+## Ausprobieren: Bits an- und ausschalten
+
+Über jedem Bit steht, wie viel diese Stelle wert ist. **Klick** die Bits an und aus und
+beobachte unten, welche Zahl dabei herauskommt.
+
+```{=html}
+<div class="binary-widget" id="bw-explore" data-bits="00000000"></div>
+```
+
+Probier es aus: Wie stellst du die **1** dar? Die **2**? Bekommst du auch die **10** hin?
+Und welche Zahl ergeben **alle** Bits zusammen, wenn sie auf `1` stehen?
+:::
+
+::: {.callout-important}
+## Merke
+
+Eine Bitfolge ist nichts anderes als eine **Zahl im Zweiersystem**. Du liest sie aus, indem du
+die Stellenwerte über allen Einsen **zusammenzählst**.
+:::
+
+Jetzt bist du dran — und zwar zuerst **ohne** das Werkzeug von oben.
+
+::: {.callout-note}
+## Aufgabe 2: Welche Zahl steckt im Block?
+
+Vor dir liegt der Block `01000001`.
+
+Rechne **mit Stift und Papier** aus, welche Zahl er ergibt. Schreib dir die Stellenwerte über
+die acht Bits und addiere die Werte über den Einsen. Trag dein Ergebnis dann unten ein.
+
+```{=html}
+<div class="answer-widget" id="aw-block" data-answer="65">
+  <div class="answer-row">
+    <input class="answer-input" type="text" inputmode="numeric" placeholder="Zahl eingeben" />
+    <button class="answer-btn" onclick="checkNumber('aw-block')">Prüfen</button>
+  </div>
+  <div class="answer-feedback"></div>
+  <div class="answer-store hidden">
+    <div class="msg-correct"><strong>✓ Genau!</strong> 64&nbsp;+&nbsp;1&nbsp;=&nbsp;65. Nur das zweite und das letzte Bit stehen auf <code>1</code>, also zählen nur die Werte 64 und 1 mit.</div>
+    <div class="msg-wrong"><strong>Noch nicht.</strong> Schreib über jedes Bit von rechts nach links die Werte 1, 2, 4, 8, 16, 32, 64, 128 und addiere nur die Werte über den Einsen.</div>
+    <div class="msg-hint" data-value="64"><strong>Fast!</strong> Das Bit für die 64 hast du erkannt. Schau noch das Bit ganz rechts an — das steht auch auf <code>1</code> und ist 1 wert.</div>
+    <div class="msg-hint" data-value="2"><strong>Achte auf die Richtung.</strong> Die Stellenwerte wachsen von <em>rechts</em> nach links: 1, 2, 4, 8 … Das gesetzte Bit links ist nicht 2 wert.</div>
+    <div class="msg-hint" data-value="1000001"><strong>Das sind die Bits selbst.</strong> Gesucht ist nicht die Bitfolge, sondern die <em>Zahl</em>, die sie ergibt — also die Summe der Stellenwerte.</div>
+    <div class="msg-hint" data-value="129"><strong>Knapp daneben.</strong> Du hast die 128 mitgezählt. Aber das vorderste Bit (Wert 128) steht auf <code>0</code> — es zählt also nicht mit.</div>
+  </div>
+</div>
+```
+
+::: {.callout-note collapse="true"}
+## Lösung
+
+Wir schreiben die Stellenwerte über die Bits:
+
+| 128 | 64 | 32 | 16 | 8 | 4 | 2 | 1 |
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| 0 | 1 | 0 | 0 | 0 | 0 | 0 | 1 |
+
+Nur über zwei Einsen stehen Werte, die mitzählen: **64** und **1**.
+
+$$ 64 + 1 = 65 $$
+
+Der Block `01000001` ergibt also die Zahl **65**. Merk dir diese Zahl — sie begegnet uns gleich
+wieder.
+:::
+:::
+
+::: {.callout-caution}
+## Hilfe: Kommst du nicht weiter?
+
+Üben wir es an einem kürzeren Beispiel mit nur **4 Bits**: `1011`.
+
+| 8 | 4 | 2 | 1 |
+|:-:|:-:|:-:|:-:|
+| 1 | 0 | 1 | 1 |
+
+Über den Einsen stehen die Werte 8, 2 und 1. Wir addieren nur diese:
+
+$$ 8 + 2 + 1 = 11 $$
+
+Genau so gehst du auch bei acht Bits vor — nur mit den größeren Stellenwerten bis 128.
+:::
+
+::: {.callout-caution}
+## Challenge: Die größte Zahl
+
+Acht Bits, jedes kann `0` oder `1` sein. **Welche größte Zahl** kannst du in einem 8-Bit-Block
+darstellen?
+
+```{=html}
+<div class="answer-widget" id="aw-max" data-answer="255">
+  <div class="answer-row">
+    <input class="answer-input" type="text" inputmode="numeric" placeholder="Zahl eingeben" />
+    <button class="answer-btn" onclick="checkNumber('aw-max')">Prüfen</button>
+  </div>
+  <div class="answer-feedback"></div>
+  <div class="answer-store hidden">
+    <div class="msg-correct"><strong>✓ Richtig!</strong> Stehen <em>alle</em> acht Bits auf <code>1</code>, ergibt das 128&nbsp;+&nbsp;64&nbsp;+&nbsp;32&nbsp;+&nbsp;16&nbsp;+&nbsp;8&nbsp;+&nbsp;4&nbsp;+&nbsp;2&nbsp;+&nbsp;1&nbsp;=&nbsp;255. Mehr passt in 8 Bits nicht.</div>
+    <div class="msg-wrong"><strong>Noch nicht.</strong> Setz im Werkzeug oben einmal <em>alle</em> Bits auf <code>1</code> und schau, welche Summe herauskommt.</div>
+    <div class="msg-hint" data-value="256"><strong>Ganz knapp!</strong> 256 ist die Anzahl der <em>möglichen</em> Blöcke (die hast du vorhin ausgerechnet). Die Zahlen beginnen aber bei 0 — die größte ist deshalb um eins kleiner.</div>
+    <div class="msg-hint" data-value="128"><strong>Nicht ganz.</strong> 128 ist nur der Wert des vordersten Bits allein. Du darfst aber alle acht Bits gleichzeitig auf <code>1</code> setzen und ihre Werte addieren.</div>
+    <div class="msg-hint" data-value="254"><strong>Fast!</strong> Du hast fast alle Werte addiert — aber das Bit ganz rechts (Wert 1) fehlt noch.</div>
+  </div>
+</div>
+```
+
+Und was fällt dir auf, wenn du diese Zahl mit den **256 Möglichkeiten** von vorhin
+vergleichst? (Tipp: Die Zahlen fangen bei 0 an.)
+:::
+
+Du kannst jetzt jede Bitfolge in eine Zahl verwandeln. Aus `01000001` wird die **65**. Aber wie
+wird aus der Zahl 65 ausgerechnet der Buchstabe **»A«**? Genau das ist der nächste Schritt.

@@ -1,4 +1,6 @@
-## Eine geheime Nachricht {#sec-start}
+---
+title: "Eine geheime Nachricht"
+---
 
 Ein Computer kennt im Innersten nur zwei Zustände: Strom **an** oder **aus** — also `1` oder `0`.
 Ein einzelnes solches Zeichen nennt man ein **Bit**. Jede Nachricht, jedes Foto, jedes Lied muss

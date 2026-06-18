@@ -40,6 +40,36 @@ function checkNumber(id) {
   fb.innerHTML = hint ? hint.innerHTML : store.querySelector('.msg-wrong').innerHTML;
 }
 
+// ── Binär-Stellenwert (Bits an-/ausschalten, Summe live) ──────────────
+function _renderBinary(w) {
+  var bits = w.dataset.bits.split('');
+  var n = bits.length;
+  var head = '<div class="binary-row binary-head">';
+  var row = '<div class="binary-row binary-bits">';
+  for (var i = 0; i < n; i++) {
+    var place = Math.pow(2, n - 1 - i);
+    head += '<div class="binary-place">' + place + '</div>';
+    row += '<button class="binary-bit' + (bits[i] === '1' ? ' on' : '') +
+      '" onclick="toggleBit(\'' + w.id + '\',' + i + ')">' + bits[i] + '</button>';
+  }
+  head += '</div>';
+  row += '</div>';
+  var sum = 0, parts = [];
+  for (var j = 0; j < n; j++) {
+    if (bits[j] === '1') { var p = Math.pow(2, n - 1 - j); sum += p; parts.push(p); }
+  }
+  var calc = parts.length ? parts.join(' + ') + ' = ' : 'kein Bit gesetzt → ';
+  var result = '<div class="binary-result">' + calc + '<strong>' + sum + '</strong></div>';
+  w.innerHTML = head + row + result;
+}
+function toggleBit(id, i) {
+  var w = document.getElementById(id);
+  var bits = w.dataset.bits.split('');
+  bits[i] = bits[i] === '1' ? '0' : '1';
+  w.dataset.bits = bits.join('');
+  _renderBinary(w);
+}
+
 // ── Multiple-Choice prüfen (wie im SQL-Beispiel) ──────────────────────
 function mcCheck(btn, id) {
   var w = document.getElementById(id);
@@ -65,6 +95,7 @@ function mcCheck(btn, id) {
 // ── Initialisierung ───────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', function () {
   document.querySelectorAll('.reveal-widget').forEach(_renderReveal);
+  document.querySelectorAll('.binary-widget').forEach(_renderBinary);
   document.querySelectorAll('.answer-widget').forEach(function (w) {
     var inp = w.querySelector('.answer-input');
     if (!inp) return;

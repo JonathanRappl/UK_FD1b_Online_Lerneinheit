@@ -36,3 +36,17 @@ Arbeitsprozess nachvollziehbar bleibt.
   Aufdeck-Stepper (`setReveal`), Zahlen-Check (`checkNumber`, mit gezielten Hinweisen je
   Fehlantwort über `.msg-hint[data-value]`), Multiple-Choice (`mcCheck`, wie SQL). Styles in
   `styles.css`. Phase 0 entsprechend umgebaut.
+- **Phase 1 „Vom Bit zur Zahl" umgesetzt:** Stellenwert-System erklärt (Analogie 365 im
+  Zehnersystem → Binär: jede Stelle ×2 statt ×10). Neues interaktives Widget `binary-widget`
+  (`toggleBit`/`_renderBinary`): 8 anklickbare Bits mit Stellenwert-Köpfen (128…1), Summe live.
+  Aufgabe 2 (Predict auf Papier: `01000001` = 65, Zahlen-Check + eingeklappte Lösung), Merke
+  (Bitfolge = Zahl im Zweiersystem), Hilfe (4-Bit-Beispiel `1011`=11), Challenge (größte Zahl
+  255, Bezug zu den 256 Möglichkeiten aus Phase 0). Schluss leitet zu ASCII über (65→»A«).
+  In `index.qmd` eingebunden, rendert fehlerfrei.
+- **Von Scroll-Seite auf seitenweise Navigation umgestellt.** Statt aller Phasen per
+  `{{< include >}}` auf einer langen Seite ist nun jede Station eine **eigene Seite**
+  (`index.qmd` = Start/Legende, `phases/phase0.qmd`, `phases/phase1.qmd`, `transparenz.qmd`).
+  Reihenfolge über `website.sidebar.contents` in `_quarto.yml`; `page-navigation: true` erzeugt
+  am Seitenende automatisch verlinkte Weiter/Zurück-Pfeile (zeigen den jeweiligen Kapiteltitel).
+  Phasen-Dateien ohne Unterstrich, `##`-Überschrift → Frontmatter-`title`. Widgets/Styles
+  (global via `include-after-body`) und Deployment unverändert. Rendert fehlerfrei.
