@@ -151,6 +151,120 @@
 
 .answer-btn:hover { background: #0b5ed7; }
 
+/* ── ASCII-Encoder (Texteingabe → Byte-Grid) ────────────────────────── */
+.encode-input {
+  font-family: var(--bs-font-monospace, monospace);
+  font-size: 0.95em;
+  padding: 0.45em 0.6em;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  width: 100%;
+  max-width: 360px;
+  margin-bottom: 0.2em;
+}
+
+/* ── Pixel-Raster (Schwarz-Weiß-Bilder) ─────────────────────────────── */
+.pixel-controls {
+  display: flex;
+  gap: 0.5em;
+  flex-wrap: wrap;
+  margin-bottom: 0.6em;
+}
+
+.pixel-grid {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0.6rem 0;
+}
+
+.pixel-row { display: flex; gap: 2px; }
+
+.pixel-cell {
+  width: 28px;
+  height: 28px;
+  box-sizing: border-box;
+  padding: 0;
+  border: 1px solid #d0d0d0;
+  border-radius: 3px;
+  background: #fff;
+  color: #adb5bd;
+  font-family: var(--bs-font-monospace, monospace);
+  font-size: 0.8em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pixel-cell.on {
+  background: #212529;
+  border-color: #212529;
+  color: #212529;
+}
+
+.pixel-cell.editable { cursor: pointer; }
+.pixel-cell.editable:hover { border-color: #6ea8fe; }
+
+.pixel-bits {
+  font-family: var(--bs-font-monospace, monospace);
+  font-size: 0.8em;
+  letter-spacing: 1px;
+  color: #6c757d;
+  margin-top: 0.6em;
+  white-space: pre;
+}
+
+/* ── RGB-Mischer (drei Bytes → Farbe) ───────────────────────────────── */
+.rgb-widget { margin: 0.75rem 0; }
+
+.rgb-sliders {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45em;
+  max-width: 360px;
+}
+
+.rgb-sliders label {
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+  font-weight: 600;
+}
+
+.rgb-slider { flex: 1; }
+.rgb-slider[data-ch="r"] { accent-color: #e8453c; }
+.rgb-slider[data-ch="g"] { accent-color: #2ea44f; }
+.rgb-slider[data-ch="b"] { accent-color: #2b6cff; }
+
+.rgb-preview {
+  width: 120px;
+  height: 120px;
+  border-radius: 10px;
+  border: 1px solid #d0d0d0;
+  margin: 0.8em 0;
+}
+
+.rgb-readout {
+  font-family: var(--bs-font-monospace, monospace);
+  font-size: 0.95em;
+  line-height: 1.7;
+}
+
+.rgb-readout code { font-size: 0.85em; }
+
+.rgb-dot {
+  display: inline-block;
+  width: 0.8em;
+  height: 0.8em;
+  border-radius: 50%;
+  margin-right: 0.4em;
+  vertical-align: middle;
+}
+
+.rgb-dot-r { background: #e8453c; }
+.rgb-dot-g { background: #2ea44f; }
+.rgb-dot-b { background: #2b6cff; }
+
 /* ── Multiple-Choice (wie SQL-Beispiel) ─────────────────────────────── */
 .mc-options {
   display: flex;

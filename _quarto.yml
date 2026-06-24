@@ -5,6 +5,10 @@ project:
     - index.qmd
     - phases/phase0.qmd
     - phases/phase1.qmd
+    - phases/phase2.qmd
+    - phases/phase3.qmd
+    - phases/phase4.qmd
+    - phases/phase5.qmd
     - transparenz.qmd
 
 website:
@@ -18,6 +22,10 @@ website:
         href: index.qmd
       - phases/phase0.qmd
       - phases/phase1.qmd
+      - phases/phase2.qmd
+      - phases/phase3.qmd
+      - phases/phase4.qmd
+      - phases/phase5.qmd
       - transparenz.qmd
   page-footer:
     left: "Erstellt mit Unterstützung von [Claude](https://www.anthropic.com/claude) (Anthropic)"

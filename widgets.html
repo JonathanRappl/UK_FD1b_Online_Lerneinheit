@@ -70,6 +70,31 @@ function toggleBit(id, i) {
   _renderBinary(w);
 }
 
+// ── Text-Eingabe prüfen (z. B. ein decodiertes Wort) ─────────────────
+function checkText(id) {
+  var w = document.getElementById(id);
+  var fb = w.querySelector('.answer-feedback');
+  var raw = w.querySelector('.answer-input').value.trim();
+  if (raw === '') { fb.className = 'answer-feedback'; fb.innerHTML = ''; return; }
+  var norm = raw.toLowerCase().replace(/\s+/g, ' ');
+  var store = w.querySelector('.answer-store');
+  if (norm === String(w.dataset.answer).toLowerCase()) {
+    fb.className = 'answer-feedback show-correct';
+    fb.innerHTML = store.querySelector('.msg-correct').innerHTML;
+    return;
+  }
+  var hint = store.querySelector('.msg-hint[data-value="' + norm + '"]');
+  fb.className = 'answer-feedback show-wrong';
+  fb.innerHTML = hint ? hint.innerHTML : store.querySelector('.msg-wrong').innerHTML;
+}
+
+// ── ASCII-Encoder (eingetippter Text → Bits/Zahl/Zeichen pro Byte) ────
+function _renderEncode(w) {
+  var grid = w.querySelector('.byte-grid');
+  var text = w.querySelector('.encode-input').value;
+  grid.innerHTML = Array.from(text).map(function (c) { return _byteCell(c, 2); }).join('');
+}
+
 // ── Multiple-Choice prüfen (wie im SQL-Beispiel) ──────────────────────
 function mcCheck(btn, id) {
   var w = document.getElementById(id);
@@ -92,6 +117,69 @@ function mcCheck(btn, id) {
   }
 }
 
+// ── Pixel-Raster: Bitfolge ⇄ Schwarz-Weiß-Bild ───────────────────────
+function _renderPixel(w) {
+  var rows = w.dataset.pattern.split(';');
+  var level = parseInt(w.dataset.level || '0', 10);
+  var grid = w.querySelector('.pixel-grid');
+  grid.innerHTML = rows.map(function (r) {
+    var cells = r.split('').map(function (b) {
+      var on = (b === '1');
+      var cls = 'pixel-cell' + (level >= 1 && on ? ' on' : '');
+      return '<div class="' + cls + '">' + (level === 0 ? b : '') + '</div>';
+    }).join('');
+    return '<div class="pixel-row">' + cells + '</div>';
+  }).join('');
+}
+function setPixel(id, level) {
+  var w = document.getElementById(id);
+  w.dataset.level = level;
+  w.querySelectorAll('.reveal-btn').forEach(function (b, i) {
+    b.classList.toggle('active', i === level);
+  });
+  _renderPixel(w);
+}
+
+// ── Pixel zeichnen (Kreativität): klickbares Raster → Bitfolge ────────
+function _renderDraw(w) {
+  var rows = parseInt(w.dataset.rows || '8', 10);
+  var cols = parseInt(w.dataset.cols || '8', 10);
+  if (!w.dataset.bits) {
+    var blank = [];
+    for (var i = 0; i < rows; i++) { blank.push('0'.repeat(cols)); }
+    w.dataset.bits = blank.join(';');
+  }
+  var matrix = w.dataset.bits.split(';');
+  w.querySelector('.pixel-grid').innerHTML = matrix.map(function (row, ri) {
+    return '<div class="pixel-row">' + row.split('').map(function (b, ci) {
+      return '<button class="pixel-cell editable' + (b === '1' ? ' on' : '') +
+        '" onclick="togglePixel(\'' + w.id + '\',' + ri + ',' + ci + ')"></button>';
+    }).join('') + '</div>';
+  }).join('');
+  var bitsBox = w.querySelector('.pixel-bits');
+  if (bitsBox) bitsBox.textContent = matrix.join('\n');
+}
+function togglePixel(id, ri, ci) {
+  var w = document.getElementById(id);
+  var m = w.dataset.bits.split(';');
+  var row = m[ri].split('');
+  row[ci] = (row[ci] === '1') ? '0' : '1';
+  m[ri] = row.join('');
+  w.dataset.bits = m.join(';');
+  _renderDraw(w);
+}
+
+// ── RGB-Mischer (drei Bytes → Farbe) ─────────────────────────────────
+function _renderRgb(w) {
+  var r = +w.dataset.r, g = +w.dataset.g, b = +w.dataset.b;
+  w.querySelector('.rgb-preview').style.background = 'rgb(' + r + ',' + g + ',' + b + ')';
+  function bin(n) { return n.toString(2).padStart(8, '0'); }
+  w.querySelector('.rgb-readout').innerHTML =
+    '<div><span class="rgb-dot rgb-dot-r"></span>Rot: <strong>' + r + '</strong> <code>' + bin(r) + '</code></div>' +
+    '<div><span class="rgb-dot rgb-dot-g"></span>Grün: <strong>' + g + '</strong> <code>' + bin(g) + '</code></div>' +
+    '<div><span class="rgb-dot rgb-dot-b"></span>Blau: <strong>' + b + '</strong> <code>' + bin(b) + '</code></div>';
+}
+
 // ── Initialisierung ───────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', function () {
   document.querySelectorAll('.reveal-widget').forEach(_renderReveal);
@@ -99,9 +187,23 @@ document.addEventListener('DOMContentLoaded', function () {
   document.querySelectorAll('.answer-widget').forEach(function (w) {
     var inp = w.querySelector('.answer-input');
     if (!inp) return;
+    var check = w.dataset.check === 'text' ? checkText : checkNumber;
     inp.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter') { e.preventDefault(); checkNumber(w.id); }
+      if (e.key === 'Enter') { e.preventDefault(); check(w.id); }
     });
+  });
+  document.querySelectorAll('.encode-widget').forEach(function (w) {
+    _renderEncode(w);
+    w.querySelector('.encode-input').addEventListener('input', function () { _renderEncode(w); });
+  });
+  document.querySelectorAll('.pixel-widget').forEach(_renderPixel);
+  document.querySelectorAll('.pixel-draw').forEach(_renderDraw);
+  document.querySelectorAll('.rgb-widget').forEach(function (w) {
+    w.querySelectorAll('.rgb-slider').forEach(function (s) {
+      s.value = w.dataset[s.dataset.ch];
+      s.addEventListener('input', function () { w.dataset[s.dataset.ch] = s.value; _renderRgb(w); });
+    });
+    _renderRgb(w);
   });
 });
 </script>

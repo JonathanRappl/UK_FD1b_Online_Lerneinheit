@@ -1,0 +1,172 @@
+---
+title: "Geschafft!"
+---
+
+Das war's — du hast den ganzen Weg geschafft. Von einer Folge aus Nullen und Einsen bis zu deinem
+eigenen, von Python gemalten Bild. Bevor du gehst, lohnt sich ein kurzer Rückblick: Schau, wie
+weit du gekommen bist, prüf dich selbst — und wirf einen Blick darauf, wie es weitergehen könnte.
+
+::: {.callout-tip}
+## Ausprobieren: Zurück zum Anfang
+
+Erinnerst du dich an die geheime Nachricht ganz am Anfang? Damals war sie ein Rätsel aus Bits.
+Heute verstehst du **jeden einzelnen Schritt**: von den 8 Bits über die Zahl bis zum Buchstaben.
+Deck sie noch einmal auf — diesmal weißt du genau, was passiert.
+
+```{=html}
+<div class="reveal-widget" id="reveal-ende" data-secret="Alles ist Zahl" data-level="0">
+  <div class="reveal-controls">
+    <button class="reveal-btn active" onclick="setReveal('reveal-ende', 0)">die Bits</button>
+    <button class="reveal-btn" onclick="setReveal('reveal-ende', 1)">die Zahlen</button>
+    <button class="reveal-btn" onclick="setReveal('reveal-ende', 2)">die Zeichen</button>
+  </div>
+  <div class="byte-grid"></div>
+</div>
+```
+:::
+
+::: {.callout-important}
+## Merke: Der rote Faden
+
+Alles, was ein Computer speichert, ist am Ende eine **Folge von Bits** — von Zahlen. Acht Bits
+bilden ein **Byte** mit 256 möglichen Werten (0–255). Aus diesen Bytes wird, je nach
+**Vereinbarung**, ein Buchstabe (ASCII), die Helligkeit eines Pixels oder ein Farbanteil (RGB).
+Darum gilt überall dasselbe: **Alles ist Zahl.**
+:::
+
+Konkret kannst du jetzt:
+
+- eine **Bitfolge** in eine Zahl verwandeln, indem du die Stellenwerte addierst;
+- erklären, warum in ein Byte genau **256** verschiedene Werte passen;
+- mit **ASCII** zwischen Zahlen und Buchstaben übersetzen;
+- ein Bild als **Raster aus Pixeln** verstehen — schwarz-weiß als ein Bit, Farbe als drei Bytes (RGB);
+- ein kleines **Python-Programm** lesen, verändern und damit dein eigenes Pixelbild erzeugen.
+
+::: {.callout-note}
+## Aufgabe 11: Selbsttest
+
+Prüf dich selbst quer durch alle Stationen. Versuch es zuerst **im Kopf oder auf Papier** —
+nachschlagen darfst du natürlich.
+
+**a) Welche Zahl steckt im Block `00101010`?**
+
+```{=html}
+<div class="answer-widget" id="aw-st-bin" data-answer="42">
+  <div class="answer-row">
+    <input class="answer-input" type="text" inputmode="numeric" placeholder="Zahl eingeben" />
+    <button class="answer-btn" onclick="checkNumber('aw-st-bin')">Prüfen</button>
+  </div>
+  <div class="answer-feedback"></div>
+  <div class="answer-store hidden">
+    <div class="msg-correct"><strong>✓ Genau!</strong> Auf <code>1</code> stehen die Stellen 32, 8 und 2 — und 32&nbsp;+&nbsp;8&nbsp;+&nbsp;2&nbsp;=&nbsp;42.</div>
+    <div class="msg-wrong"><strong>Noch nicht.</strong> Schreib die Stellenwerte 128, 64, 32, 16, 8, 4, 2, 1 über die Bits und addiere nur die Werte über den Einsen.</div>
+    <div class="msg-hint" data-value="101010"><strong>Das sind die Bits selbst.</strong> Gesucht ist die <em>Zahl</em> dahinter — also die Summe der Stellenwerte über den Einsen.</div>
+  </div>
+</div>
+```
+
+**b) Der Buchstabe »A« ist 65. Welche Zahl gehört dann zu »B«?**
+
+```{=html}
+<div class="answer-widget" id="aw-st-ascii" data-answer="66">
+  <div class="answer-row">
+    <input class="answer-input" type="text" inputmode="numeric" placeholder="Zahl eingeben" />
+    <button class="answer-btn" onclick="checkNumber('aw-st-ascii')">Prüfen</button>
+  </div>
+  <div class="answer-feedback"></div>
+  <div class="answer-store hidden">
+    <div class="msg-correct"><strong>✓ Richtig!</strong> In ASCII folgen die Buchstaben lückenlos aufeinander: »A«&nbsp;=&nbsp;65, »B«&nbsp;=&nbsp;66, »C«&nbsp;=&nbsp;67 und so weiter.</div>
+    <div class="msg-wrong"><strong>Noch nicht.</strong> Die Buchstaben sind in ASCII durchnummeriert. Was kommt direkt nach 65?</div>
+    <div class="msg-hint" data-value="65"><strong>Das ist »A«.</strong> »B« kommt direkt danach — also genau eins mehr.</div>
+  </div>
+</div>
+```
+
+**c) Wie viele Bits braucht ein einzelnes Schwarz-Weiß-Pixel (nur schwarz oder weiß)?**
+
+```{=html}
+<div class="mc-widget" id="mc-st-pixel">
+  <div class="mc-options">
+    <button class="mc-btn" data-correct="1" onclick="mcCheck(this, 'mc-st-pixel')">1 Bit</button>
+    <button class="mc-btn" onclick="mcCheck(this, 'mc-st-pixel')">3 Bits</button>
+    <button class="mc-btn" onclick="mcCheck(this, 'mc-st-pixel')">8 Bits</button>
+    <button class="mc-btn" onclick="mcCheck(this, 'mc-st-pixel')">256 Bits</button>
+  </div>
+  <div class="mc-feedback"></div>
+  <div class="mc-correct-text hidden">
+    <strong>✓ Genau.</strong> Zwei mögliche Zustände — schwarz oder weiß — passen in ein einziges Bit (<code>1</code> oder <code>0</code>).
+  </div>
+  <div class="mc-wrong-text hidden">
+    <strong>Schau nochmal.</strong> Das Pixel kann nur zwei Werte haben: schwarz oder weiß. Wie viele Bits braucht man, um zwischen genau zwei Möglichkeiten zu unterscheiden?
+  </div>
+</div>
+```
+
+**d) Wie viele Bytes speichert der Computer für ein einziges Farbpixel (RGB)?**
+
+```{=html}
+<div class="mc-widget" id="mc-st-rgb">
+  <div class="mc-options">
+    <button class="mc-btn" data-correct="1" onclick="mcCheck(this, 'mc-st-rgb')">3 Bytes — je eines für Rot, Grün und Blau</button>
+    <button class="mc-btn" onclick="mcCheck(this, 'mc-st-rgb')">1 Byte</button>
+    <button class="mc-btn" onclick="mcCheck(this, 'mc-st-rgb')">8 Bytes</button>
+    <button class="mc-btn" onclick="mcCheck(this, 'mc-st-rgb')">256 Bytes</button>
+  </div>
+  <div class="mc-feedback"></div>
+  <div class="mc-correct-text hidden">
+    <strong>✓ Richtig.</strong> Jeder der drei Farbanteile (Rot, Grün, Blau) ist eine Zahl von 0 bis 255 — und das ist genau ein Byte. Drei Anteile, drei Bytes.
+  </div>
+  <div class="mc-wrong-text hidden">
+    <strong>Noch nicht.</strong> Eine Farbe wird aus drei Lichtern gemischt, und jeder Anteil geht von 0 bis 255 — also ein Byte pro Anteil. Wie viele Anteile gibt es?
+  </div>
+</div>
+```
+:::
+
+Wenn dich das Thema gepackt hat: Hier hört es längst nicht auf.
+
+::: {.callout-caution}
+## Challenge: Wie es weitergeht
+
+Drei Fragen, die Informatikerinnen und Informatiker beschäftigen — kleine Ausblicke für Neugierige.
+
+**Bilder kleiner machen (Kompression).** Stell dir eine Pixel-Reihe vor, die so gespeichert ist:
+`0000000011111111` — also 16 Bits. Statt jedes Bit einzeln zu notieren, könnte man auch nur
+sagen: „8-mal `0`, dann 8-mal `1`". Wie viele **Zahlen** musst du dafür speichern?
+
+```{=html}
+<div class="answer-widget" id="aw-st-rle" data-answer="4">
+  <div class="answer-row">
+    <input class="answer-input" type="text" inputmode="numeric" placeholder="Anzahl Zahlen" />
+    <button class="answer-btn" onclick="checkNumber('aw-st-rle')">Prüfen</button>
+  </div>
+  <div class="answer-feedback"></div>
+  <div class="answer-store hidden">
+    <div class="msg-correct"><strong>✓ Stimmt.</strong> Vier Angaben genügen: der Wert <code>0</code> und wie oft (8), dann der Wert <code>1</code> und wie oft (8). Bei langen gleichfarbigen Flächen spart das eine Menge Platz — genau so funktioniert <em>Lauflängen-Codierung</em>.</div>
+    <div class="msg-wrong"><strong>Fast.</strong> Du musst pro Block zwei Dinge festhalten: <em>welcher</em> Wert (0 oder 1) und <em>wie oft</em> er kommt. Es gibt zwei Blöcke …</div>
+    <div class="msg-hint" data-value="2"><strong>Knapp daneben.</strong> Die beiden Längen (8 und 8) allein reichen nicht — du musst auch sagen, <em>welcher</em> Wert jeweils gemeint ist. Also zwei Angaben pro Block.</div>
+  </div>
+</div>
+```
+
+**Mehr als 256 Zeichen (UTF-8).** Erinnerst du dich, dass ein Byte nur für unser Alphabet reicht,
+aber nicht für 中, ❤ oder 😀? Moderne Texte nutzen deshalb ein System namens **UTF-8**, das für
+solche Zeichen einfach **mehrere Bytes** zusammennimmt. Das Prinzip bleibt: alles ist Zahl —
+manchmal braucht eine Zahl eben mehr Platz.
+
+**Wenn ein Bit kippt (Fehlererkennung).** Auf dem Weg durchs Internet kann mal ein Bit
+verrutschen — aus einer `1` wird eine `0`. Damit der Computer das **bemerkt**, hängt er oft ein
+zusätzliches **Prüf-Bit** an. Wie man damit Fehler aufspürt (und sogar repariert), ist eine
+eigene spannende Geschichte.
+:::
+
+::: {.callout-tip}
+## Zum Nachdenken
+
+Nimm dir kurz Zeit: Was hat dich auf diesem Weg am meisten **überrascht**? Und wenn du das
+nächste Mal ein Foto verschickst oder eine Nachricht tippst — kannst du dir jetzt vorstellen,
+was im Inneren des Geräts passiert?
+:::
+
+Danke fürs Mitmachen. Auf der nächsten Seite findest du die **Quellen** und einen offenen Blick
+darauf, wie diese Lerneinheit entstanden ist.

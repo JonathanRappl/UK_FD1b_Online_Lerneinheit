@@ -1,0 +1,172 @@
+---
+title: "Vom Pixel zum Bild"
+---
+
+Texte waren erstaunlich einfach: ein Zeichen, eine Zahl. Aber ein Foto kennt keine Buchstaben.
+Wie soll daraus eine Folge von Zahlen werden?
+
+Der Trick ist derselbe wie beim Text — nur in zwei Richtungen. Man zerlegt das Bild in ein
+feines **Raster** aus winzigen Quadraten. Jedes dieser Quadrate heißt **Pixel** (von englisch
+*picture element*). Sind die Pixel klein genug, verschwimmen sie für unser Auge zu einem
+zusammenhängenden Bild — so wie die Punkte auf einem Bildschirm.
+
+Fangen wir so einfach an, wie es nur geht: Jedes Pixel ist entweder **schwarz** oder **weiß** —
+mehr nicht. Zwei Zustände, das kennst du schon: Dafür genügt ein **einziges Bit** pro Pixel. Wir
+vereinbaren `1` = schwarz, `0` = weiß. Ein ganzes Schwarz-Weiß-Bild ist dann nichts als ein
+Raster aus Nullen und Einsen.
+
+::: {.callout-note}
+## Aufgabe 5: Was zeigt dieses Raster?
+
+Hier ist ein kleines Bild als Bitfolge gespeichert — fünf Zeilen mit je fünf Pixeln:
+
+::: {style="font-family: var(--bs-font-monospace, monospace); font-size: 1.1em; letter-spacing: 3px; margin: 0.6em 0;"}
+00100<br>
+01110<br>
+11111<br>
+01110<br>
+00100
+:::
+
+Nimm **Stift und Papier**, zeichne ein 5×5-Kästchengitter und male jedes Kästchen mit einer `1`
+schwarz aus, jedes mit einer `0` lässt du weiß. **Welche Form** erscheint?
+
+Wenn du fertig bist, schalt das Raster unten von „als Zahlen" auf „als Bild" um und vergleiche.
+
+```{=html}
+<div class="pixel-widget" id="pix-diamond" data-pattern="00100;01110;11111;01110;00100" data-level="0">
+  <div class="pixel-controls">
+    <button class="reveal-btn active" onclick="setPixel('pix-diamond', 0)">als Zahlen</button>
+    <button class="reveal-btn" onclick="setPixel('pix-diamond', 1)">als Bild</button>
+  </div>
+  <div class="pixel-grid"></div>
+</div>
+```
+
+::: {.callout-note collapse="true"}
+## Lösung
+
+Wenn man alle Pixel mit `1` schwarz färbt, entsteht eine **Raute** (ein auf die Spitze
+gestelltes Quadrat). Die schwarzen Pixel sammeln sich in der Mitte und laufen nach oben, unten
+und zu den Seiten spitz zu.
+:::
+:::
+
+::: {.callout-important}
+## Merke
+
+Ein Schwarz-Weiß-Bild ist ein **Raster aus Bits**: ein Bit pro Pixel. Je **mehr** Pixel das
+Raster hat, desto feiner wird das Bild — das nennt man die **Auflösung**.
+:::
+
+Am besten verstehst du das, wenn du selbst eines baust.
+
+::: {.callout-tip}
+## Ausprobieren: Zeichne dein eigenes Pixelbild
+
+Klick die Kästchen an, um sie schwarz zu färben (nochmal klicken macht sie wieder weiß).
+Probier ein einfaches Symbol — ein Herz, einen Smiley, deine Initiale. Unter dem Raster siehst
+du, als welche Bitfolge der Computer dein Werk speichern würde.
+
+```{=html}
+<div class="pixel-draw" id="pix-draw" data-rows="8" data-cols="8">
+  <div class="pixel-grid"></div>
+  <div class="pixel-bits"></div>
+</div>
+```
+:::
+
+So ein Schwarz-Weiß-Raster ist sparsam — aber ein echtes Foto hat **Farben**. Und Farbe lässt
+sich genauso in Zahlen fassen.
+
+Bildschirme mischen jede Farbe aus **drei farbigen Lichtern**: **Rot**, **Grün** und **Blau**.
+Für jedes Pixel speichert der Computer deshalb **drei Zahlen** — wie viel von jeder Farbe
+leuchten soll. Jede dieser Zahlen geht von 0 (aus) bis 255 (volle Stärke). Diese Spanne kommt dir
+bekannt vor: 0 bis 255 ist genau das, was in **ein Byte** passt. Ein Farbpixel kostet also drei
+Bytes. Dieses System heißt **RGB**.
+
+::: {.callout-tip}
+## Ausprobieren: Farben mischen
+
+Schieb die drei Regler und beobachte, welche Farbe entsteht. Daneben siehst du die drei Zahlen —
+und darunter, wie jede als Byte aussieht.
+
+```{=html}
+<div class="rgb-widget" id="rgb-mix" data-r="70" data-g="130" data-b="200">
+  <div class="rgb-sliders">
+    <label>Rot <input type="range" min="0" max="255" class="rgb-slider" data-ch="r" /></label>
+    <label>Grün <input type="range" min="0" max="255" class="rgb-slider" data-ch="g" /></label>
+    <label>Blau <input type="range" min="0" max="255" class="rgb-slider" data-ch="b" /></label>
+  </div>
+  <div class="rgb-preview"></div>
+  <div class="rgb-readout"></div>
+</div>
+```
+
+Stell ruhig auch mal alle drei Regler ganz nach links (alles 0) und ganz nach rechts (alles 255).
+Welche Farben kommen dabei heraus?
+:::
+
+::: {.callout-note}
+## Aufgabe 6: Reines Rot
+
+Du willst ein Pixel in **kräftigem, reinem Rot** leuchten lassen. Welche der drei Einstellungen
+gehört dazu? Überleg zuerst — und prüfe danach gern mit dem Mischer oben.
+
+```{=html}
+<div class="mc-widget" id="mc-red">
+  <div class="mc-options">
+    <button class="mc-btn" data-correct="1" onclick="mcCheck(this, 'mc-red')">Rot 255 · Grün 0 · Blau 0</button>
+    <button class="mc-btn" onclick="mcCheck(this, 'mc-red')">Rot 255 · Grün 255 · Blau 255</button>
+    <button class="mc-btn" onclick="mcCheck(this, 'mc-red')">Rot 0 · Grün 255 · Blau 0</button>
+    <button class="mc-btn" onclick="mcCheck(this, 'mc-red')">Rot 255 · Grün 255 · Blau 0</button>
+  </div>
+  <div class="mc-feedback"></div>
+  <div class="mc-correct-text hidden">
+    <strong>✓ Genau.</strong> Nur das rote Licht leuchtet voll (255), Grün und Blau sind ganz aus (0). Das ergibt reines Rot.
+  </div>
+  <div class="mc-wrong-text hidden">
+    <strong>Schau nochmal.</strong> Für reines Rot darf <em>nur</em> der Rot-Wert hoch sein. Sind Grün oder Blau auch an, mischt sich eine andere Farbe dazu — probier es im Mischer aus.
+  </div>
+</div>
+```
+:::
+
+::: {.callout-caution}
+## Hilfe: So liest du die drei Zahlen
+
+Die drei Zahlen stehen immer in der Reihenfolge **Rot · Grün · Blau**. `0` heißt „dieses Licht
+ist aus", `255` heißt „dieses Licht leuchtet voll". Für eine **reine** Farbe brauchst du also
+genau **einen** Wert auf 255 und die beiden anderen auf 0. Stell die Werte ruhig im Mischer
+oben ein und schau, was passiert.
+:::
+
+::: {.callout-caution}
+## Challenge: Woher kommt Gelb?
+
+Mit Farbe aus dem Tuschkasten mischt niemand Gelb aus Rot und Grün — da käme ein schmutziges
+Braun heraus. Bei **Licht** ist es anders. Stell im Mischer oben einmal Rot **und** Grün auf 255
+und Blau auf 0. Welche Farbe entsteht?
+
+```{=html}
+<div class="mc-widget" id="mc-yellow">
+  <div class="mc-options">
+    <button class="mc-btn" data-correct="1" onclick="mcCheck(this, 'mc-yellow')">Gelb</button>
+    <button class="mc-btn" onclick="mcCheck(this, 'mc-yellow')">Braun</button>
+    <button class="mc-btn" onclick="mcCheck(this, 'mc-yellow')">Orange</button>
+    <button class="mc-btn" onclick="mcCheck(this, 'mc-yellow')">Grau</button>
+  </div>
+  <div class="mc-feedback"></div>
+  <div class="mc-correct-text hidden">
+    <strong>✓ Überraschend, oder?</strong> Rotes und grünes Licht zusammen ergeben <strong>Gelb</strong>. Licht mischt sich anders als Farbe im Tuschkasten: Je mehr Licht man addiert, desto <em>heller</em> wird es — alle drei voll (255·255·255) ergeben sogar reines Weiß.
+  </div>
+  <div class="mc-wrong-text hidden">
+    <strong>Probier es im Mischer.</strong> Stell Rot und Grün auf 255, Blau auf 0 — und schau dir das Farbfeld an. Licht verhält sich anders als Wasserfarbe.
+  </div>
+</div>
+```
+:::
+
+Ob Text oder Bild — am Ende steht immer dasselbe: eine **Folge von Zahlen**, gespeichert als
+Bits. Bisher hast du diese Zahlen von Hand gesetzt. Im nächsten Schritt überlässt du das Rechnen
+dem Computer: Mit ein paar Zeilen **Python** erzeugst du dein eigenes Bild — Pixel für Pixel.

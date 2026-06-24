@@ -1,0 +1,181 @@
+---
+title: "Von der Zahl zum Buchstaben"
+---
+
+Wir sind bei einer Zahl angekommen: Aus dem Block `01000001` haben wir die **65** gemacht. Aber
+warum wird daraus ausgerechnet ein **»A«** — und nicht ein »Z« oder ein »7«?
+
+Die ehrliche Antwort: aus keinem tieferen Grund. Es gibt keine Naturgesetz, das sagt „65 ist ein
+A". Irgendwann mussten sich Menschen schlicht **einigen**: Welche Zahl steht für welches Zeichen?
+Diese Einigung wurde in einer Tabelle festgehalten — dem **ASCII**-Code (gesprochen „aski",
+American Standard Code for Information Interchange). Seitdem hält sich praktisch jeder Computer
+daran.
+
+Ein kleiner Ausschnitt aus dieser Tabelle:
+
+| Zeichen | Zahl | | Zeichen | Zahl |
+|:-:|:-:|:-:|:-:|:-:|
+| `A` | 65 | | `a` | 97 |
+| `B` | 66 | | `b` | 98 |
+| `C` | 67 | | `c` | 99 |
+| … | … | | … | … |
+| `Z` | 90 | | `z` | 122 |
+
+Das Praktische daran: Die Buchstaben liegen **lückenlos hintereinander**. Wer `A` = 65 kennt,
+kann jeden anderen Großbuchstaben ausrechnen, ohne die ganze Tabelle auswendig zu lernen.
+
+::: {.callout-note}
+## Aufgabe 3: Ein Buchstabe weiter
+
+Du weißt jetzt: `A` hat die Zahl 65, und die Großbuchstaben folgen ohne Lücke aufeinander.
+
+**Welche Zahl gehört zum »C«?** Überleg es dir kurz im Kopf und trag sie unten ein.
+
+```{=html}
+<div class="answer-widget" id="aw-c" data-answer="67">
+  <div class="answer-row">
+    <input class="answer-input" type="text" inputmode="numeric" placeholder="Zahl eingeben" />
+    <button class="answer-btn" onclick="checkNumber('aw-c')">Prüfen</button>
+  </div>
+  <div class="answer-feedback"></div>
+  <div class="answer-store hidden">
+    <div class="msg-correct"><strong>✓ Genau!</strong> <code>A</code> = 65, <code>B</code> = 66, <code>C</code> = 67. Jeder Buchstabe ist um eins größer als der vorige.</div>
+    <div class="msg-wrong"><strong>Noch nicht.</strong> Zähl von <code>A</code> = 65 aus weiter: <code>A</code>, <code>B</code>, <code>C</code> — wie oft musst du eins dazuzählen?</div>
+    <div class="msg-hint" data-value="66"><strong>Fast!</strong> 66 gehört zum <code>B</code>. Geh noch einen Buchstaben weiter zum <code>C</code>.</div>
+    <div class="msg-hint" data-value="68"><strong>Einen zu weit.</strong> 68 wäre schon das <code>D</code>. Das <code>C</code> kommt eine Stelle davor.</div>
+    <div class="msg-hint" data-value="3"><strong>Das ist die Position.</strong> Das <code>C</code> ist zwar der 3. Buchstabe — gesucht ist aber seine ASCII-Zahl, und die zählt ab 65 los.</div>
+  </div>
+</div>
+```
+
+::: {.callout-note collapse="true"}
+## Lösung
+
+Wir zählen von `A` aus weiter, jedes Mal eins dazu:
+
+`A` = 65, `B` = 66, `C` = **67**.
+
+Das `C` hat also die Zahl **67**.
+:::
+:::
+
+::: {.callout-important}
+## Merke
+
+Jedes Zeichen entspricht einer festgelegten Zahl — und damit einem Byte. Diese Zuordnung ist
+eine **Vereinbarung** (ASCII), kein Zufall. Wichtig zum Merken: `A` = 65 und der kleine
+Buchstabe `a` = 97.
+:::
+
+Damit hast du alles, um **jeden** Text in Zahlen und Bits zu verwandeln. Probier es gleich mit
+deinem eigenen aus.
+
+::: {.callout-tip}
+## Ausprobieren: Dein Text als Bytes
+
+Tipp unten ein Wort ein — zum Beispiel deinen **Namen**. Für jeden Buchstaben siehst du sofort,
+welche Bitfolge, welche Zahl und welches Zeichen der Computer speichert.
+
+```{=html}
+<div class="encode-widget" id="enc-name">
+  <input class="encode-input" type="text" placeholder="Tippe z. B. deinen Namen" />
+  <div class="byte-grid"></div>
+</div>
+```
+
+Achte mal darauf, was beim **Leerzeichen** passiert oder wenn du eine **Ziffer** tippst — auch
+sie haben ihre eigene Zahl. (Buchstaben mit Akzent wie `ä` oder `é` und Emojis sprengen ASCII
+allerdings — warum, schauen wir uns später an.)
+:::
+
+Wenn man Text in Zahlen verwandeln kann, geht es natürlich auch andersherum: Aus Zahlen wird
+wieder Text. Genau das machst du jetzt.
+
+::: {.callout-note}
+## Aufgabe 4: Geheimnachricht entschlüsseln
+
+Diese fünf Zahlen sind eine Nachricht, Byte für Byte:
+
+::: {style="font-family: var(--bs-font-monospace, monospace); font-size: 1.1em; letter-spacing: 2px; margin: 0.6em 0;"}
+72 · 97 · 108 · 108 · 111
+:::
+
+**Welches Wort ist das?** Finde es heraus und schreib es unten hin. (Brauchst du eine Zuordnung
+von Zahlen zu Buchstaben, hilft dir die orange Box darunter.)
+
+```{=html}
+<div class="answer-widget" id="aw-decode" data-check="text" data-answer="Hallo">
+  <div class="answer-row">
+    <input class="answer-input" type="text" placeholder="Wort eingeben" />
+    <button class="answer-btn" onclick="checkText('aw-decode')">Prüfen</button>
+  </div>
+  <div class="answer-feedback"></div>
+  <div class="answer-store hidden">
+    <div class="msg-correct"><strong>✓ Richtig!</strong> 72 ist ein großes <code>H</code>, 97 ein kleines <code>a</code>, 108 zweimal <code>l</code> und 111 ein <code>o</code> — zusammen <strong>Hallo</strong>.</div>
+    <div class="msg-wrong"><strong>Noch nicht ganz.</strong> Geh Zahl für Zahl vor: 72 liegt im Bereich der <em>Großbuchstaben</em> (ab 65), die übrigen ab 97 sind <em>klein</em>. Die Hilfe-Box hat die passende Tabelle.</div>
+    <div class="msg-hint" data-value="halo"><strong>Fast!</strong> Schau nochmal: Die 108 kommt <em>zweimal</em> hintereinander vor — da fehlt dir ein Buchstabe.</div>
+  </div>
+</div>
+```
+
+::: {.callout-note collapse="true"}
+## Lösung
+
+Wir schlagen jede Zahl nach:
+
+| Zahl | 72 | 97 | 108 | 108 | 111 |
+|:-:|:-:|:-:|:-:|:-:|:-:|
+| Zeichen | `H` | `a` | `l` | `l` | `o` |
+
+Die 72 liegt im Bereich der Großbuchstaben (`A` = 65, also ist 72 der achte: `H`), die übrigen
+liegen ab 97 bei den Kleinbuchstaben. Zusammengesetzt ergibt sich das Wort **Hallo**.
+:::
+:::
+
+::: {.callout-caution}
+## Hilfe: Zuordnung zum Nachschlagen
+
+Die Buchstaben folgen lückenlos aufeinander — du kannst also von `A` = 65 bzw. `a` = 97 aus
+weiterzählen:
+
+| `A` 65 | `B` 66 | `C` 67 | `D` 68 | `E` 69 | `F` 70 | `G` 71 | `H` 72 | `I` 73 |
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| `J` 74 | `K` 75 | `L` 76 | `M` 77 | `N` 78 | `O` 79 | `P` 80 | `Q` 81 | `R` 82 |
+| `S` 83 | `T` 84 | `U` 85 | `V` 86 | `W` 87 | `X` 88 | `Y` 89 | `Z` 90 |  |
+
+Für die **kleinen** Buchstaben rechnest du einfach **32 dazu**: `a` = 97, `b` = 98, `c` = 99, …
+Oder du tippst einen verdächtigen Buchstaben oben in den Encoder und schaust, welche Zahl
+herauskommt.
+:::
+
+::: {.callout-caution}
+## Challenge: Groß und klein
+
+Vergleich einmal das große `A` (65) mit dem kleinen `a` (97).
+
+**Um wie viel unterscheiden sich ihre Zahlen?**
+
+```{=html}
+<div class="answer-widget" id="aw-case" data-answer="32">
+  <div class="answer-row">
+    <input class="answer-input" type="text" inputmode="numeric" placeholder="Zahl eingeben" />
+    <button class="answer-btn" onclick="checkNumber('aw-case')">Prüfen</button>
+  </div>
+  <div class="answer-feedback"></div>
+  <div class="answer-store hidden">
+    <div class="msg-correct"><strong>✓ Genau!</strong> 97 − 65 = 32. Und 32 ist selbst ein Stellenwert aus Phase „Vom Bit zur Zahl" — groß und klein unterscheiden sich also in genau <em>einem</em> Bit!</div>
+    <div class="msg-wrong"><strong>Noch nicht.</strong> Rechne einfach 97 − 65.</div>
+    <div class="msg-hint" data-value="2"><strong>Schau nochmal.</strong> Gemeint ist nicht die Anzahl Buchstaben dazwischen, sondern der Abstand der beiden <em>Zahlen</em>: 97 − 65.</div>
+  </div>
+</div>
+```
+
+Dieser Abstand von 32 ist kein Zufall: Erinnerst du dich an die Stellenwerte 1, 2, 4, 8, 16,
+**32**, 64, 128? Das große `A` ist `01000001`, das kleine `a` ist `01100001` — sie unterscheiden
+sich in **genau einem Bit**, nämlich dem mit dem Wert 32. Ein einziger Bit-Kippschalter macht
+aus einem Großbuchstaben einen kleinen.
+:::
+
+Du kannst jetzt Texte in Zahlen verwandeln und wieder zurück. Aber Buchstaben sind nur der
+Anfang — ein Foto besteht nicht aus Wörtern. Wie wird daraus eine Folge von Zahlen? Das schauen
+wir uns als Nächstes an.

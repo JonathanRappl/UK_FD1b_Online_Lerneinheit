@@ -1,0 +1,246 @@
+---
+title: "Vom Code zum Bild"
+---
+
+Bisher hast du jede Zahl, jedes Bit, jeden Pixel **von Hand** gesetzt. Ein Computer macht das
+nicht so — er *rechnet* sie aus. Damit er weiß, was er tun soll, gibt man ihm eine genaue
+Anleitung in einer **Programmiersprache**. Eine der verbreitetsten heißt **Python**.
+
+In dieser letzten Station baust du dein eigenes Pixelbild — nicht Kästchen für Kästchen mit dem
+Stift, sondern mit ein paar Zeilen Code. Du musst dafür kein Python können. Wir gehen Schritt für
+Schritt vor: Erst **liest** du ein fertiges Programm und sagst voraus, was es tut. Dann führst du
+es aus, schaust genauer hin, veränderst es — und am Schluss schreibst du dein eigenes.
+
+::: {.callout-tip}
+## Ausprobieren: So führst du Python im Browser aus
+
+Du brauchst **nichts zu installieren**. Wir benutzen die Online-Umgebung **WebTigerPython** —
+sie läuft direkt im Browser.
+
+1. Öffne [https://webtigerpython.ethz.ch/](https://webtigerpython.ethz.ch/){target="_blank"} in einem neuen Tab (Klick mit gedrückter Strg-/⌘-Taste).
+2. **Kopiere** den Code aus der jeweiligen Aufgabe (rechts oben an jedem Codeblock ist ein Kopier-Symbol) in das große Editor-Feld auf der linken Seite.
+3. Klick auf den **grünen Ausführen-Pfeil** ▶. Die Ausgabe erscheint im Konsolen-Feld.
+
+Lass den Tab offen — du kommst in den nächsten Aufgaben immer wieder dorthin zurück.
+:::
+
+::: {.callout-note}
+## Aufgabe 7: Was malt dieses Programm?
+
+Lies das Programm zuerst **nur mit den Augen** — noch nicht ausführen! Nimm **Stift und Papier**
+und schreib auf, was deiner Meinung nach in der Konsole erscheint.
+
+```python
+bild = [
+    "01110",
+    "10001",
+    "11111",
+    "10001",
+    "10001",
+]
+
+for zeile in bild:
+    for bit in zeile:
+        if bit == "1":
+            print("█", end="")
+        else:
+            print(" ", end="")
+    print()
+```
+
+**Tipp:** Jede `1` wird zu einem schwarzen Block `█`, jede `0` zu einem Leerzeichen. Geh die
+fünf Textzeilen von oben nach unten durch.
+
+Erst **danach** kopierst du den Code nach WebTigerPython und führst ihn aus. Stimmt deine
+Vorhersage?
+
+::: {.callout-note collapse="true"}
+## Lösung
+
+Es erscheint der Buchstabe **»A«**:
+
+```
+ ███
+█   █
+█████
+█   █
+█   █
+```
+
+Kommt dir bekannt vor? Genau dieses »A« hat uns die ganze Einheit begleitet — als Zahl **65**,
+als ASCII-Zeichen, und jetzt als Pixelbild. Die Liste `bild` ist nichts anderes als das
+**Raster aus Nullen und Einsen** aus der letzten Station — nur dass diesmal **Python** es für
+dich aufmalt.
+:::
+:::
+
+::: {.callout-caution}
+## Hilfe: Wie liest man die beiden Schleifen?
+
+- `for zeile in bild:` geht die Textzeilen der Liste **eine nach der anderen** durch — also
+  Pixel-Reihe für Pixel-Reihe.
+- `for bit in zeile:` geht innerhalb einer Reihe **Zeichen für Zeichen** durch.
+- `if bit == "1":` fragt: Ist dieses Zeichen eine `1`? Dann druck einen Block `█`, **sonst**
+  (`else`) ein Leerzeichen.
+- `print("█", end="")` druckt den Block, ohne danach in eine neue Zeile zu springen — so bleiben
+  die Pixel einer Reihe **nebeneinander**.
+- Das leere `print()` ganz unten beendet die Reihe und beginnt die **nächste**.
+:::
+
+Bevor du etwas veränderst, lohnt es sich, das Programm wirklich verstanden zu haben.
+
+::: {.callout-note}
+## Aufgabe 8: Genauer hinschauen
+
+Beantworte die beiden Fragen zum Code von oben.
+
+**a) Wozu dient das leere `print()` als letzte Zeile in der Schleife?**
+
+```{=html}
+<div class="mc-widget" id="mc-newline">
+  <div class="mc-options">
+    <button class="mc-btn" data-correct="1" onclick="mcCheck(this, 'mc-newline')">Es beginnt eine neue Zeile — also die nächste Pixel-Reihe.</button>
+    <button class="mc-btn" onclick="mcCheck(this, 'mc-newline')">Es druckt ein zusätzliches Leerzeichen als Pixel.</button>
+    <button class="mc-btn" onclick="mcCheck(this, 'mc-newline')">Es beendet das ganze Programm.</button>
+    <button class="mc-btn" onclick="mcCheck(this, 'mc-newline')">Es löscht die zuletzt gedruckte Zeile.</button>
+  </div>
+  <div class="mc-feedback"></div>
+  <div class="mc-correct-text hidden">
+    <strong>✓ Genau.</strong> Ohne dieses <code>print()</code> würden alle Pixel in einer einzigen langen Zeile landen. Es sorgt für den Zeilenumbruch nach jeder Reihe.
+  </div>
+  <div class="mc-wrong-text hidden">
+    <strong>Schau nochmal.</strong> Das innere <code>print(…, end="")</code> verhindert den Zeilenumbruch. Das leere <code>print()</code> holt ihn am Ende der Reihe wieder nach — es startet die nächste Pixel-Reihe.
+  </div>
+</div>
+```
+
+**b) Warum steht bei `print("█", end="")` der Zusatz `end=""`?**
+
+```{=html}
+<div class="mc-widget" id="mc-end">
+  <div class="mc-options">
+    <button class="mc-btn" data-correct="1" onclick="mcCheck(this, 'mc-end')">Damit die Pixel einer Reihe nebeneinander bleiben und nicht jedes auf einer eigenen Zeile steht.</button>
+    <button class="mc-btn" onclick="mcCheck(this, 'mc-end')">Damit das Programm schneller läuft.</button>
+    <button class="mc-btn" onclick="mcCheck(this, 'mc-end')">Damit am Ende der Reihe ein leerer Pixel ergänzt wird.</button>
+    <button class="mc-btn" onclick="mcCheck(this, 'mc-end')">Ohne <code>end=""</code> würde das Programm einen Fehler melden.</button>
+  </div>
+  <div class="mc-feedback"></div>
+  <div class="mc-correct-text hidden">
+    <strong>✓ Richtig.</strong> Normalerweise springt <code>print</code> nach jeder Ausgabe in eine neue Zeile. <code>end=""</code> schaltet das ab — so reihen sich die Blöcke einer Pixel-Reihe aneinander.
+  </div>
+  <div class="mc-wrong-text hidden">
+    <strong>Noch nicht.</strong> <code>end=""</code> sagt: „Häng nach diesem Block <em>nichts</em> an, auch keinen Zeilenumbruch." So bleiben die Pixel einer Reihe nebeneinander. Der Umbruch kommt erst durch das leere <code>print()</code> am Reihenende.
+  </div>
+</div>
+```
+:::
+
+Wenn du verstanden hast, *wie* das Programm malt, kannst du es auch **umbauen**.
+
+::: {.callout-note}
+## Aufgabe 9: Mach ein »T« daraus
+
+Verändere die Liste `bild` im Programm so, dass statt des »A« ein großes **»T«** erscheint.
+Du musst nur die fünf Textzeilen austauschen — die Schleifen darunter bleiben unverändert.
+Probier es zuerst auf Papier: Wo müssen die `1`-en stehen?
+
+Führ den geänderten Code danach in WebTigerPython aus und prüfe, ob dein »T« stimmt.
+
+::: {.callout-note collapse="true"}
+## Lösung
+
+Ein »T« hat oben einen vollen Balken und darunter einen Strich in der Mitte:
+
+```python
+bild = [
+    "11111",
+    "00100",
+    "00100",
+    "00100",
+    "00100",
+]
+```
+
+Das ergibt:
+
+```
+█████
+  █
+  █
+  █
+  █
+```
+:::
+:::
+
+::: {.callout-important}
+## Merke
+
+Ein **Programm** ist eine Anleitung, die der Computer Schritt für Schritt ausführt. Statt jedes
+Bit von Hand zu setzen, beschreibst du einmal die **Regel** — den Rest erledigt die Maschine.
+Ob mit Stift oder mit Code: Ein Bild bleibt immer ein **Raster aus Zahlen**. Python setzt diese
+Zahlen nur schneller.
+:::
+
+Jetzt bist du dran — mit deinem eigenen Motiv.
+
+::: {.callout-note}
+## Aufgabe 10: Dein eigenes Pixelbild
+
+Entwirf ein eigenes kleines Bild und bring Python dazu, es zu malen — ein Herz, einen Smiley,
+deine Initiale, ein Symbol deiner Wahl.
+
+1. **Skizziere zuerst** auf Papier ein Raster und male die Kästchen aus, die schwarz sein sollen.
+   (Du darfst auch das Zeichen-Raster aus der letzten Station benutzen, um dein Motiv zu entwerfen
+   und die Nullen und Einsen abzulesen.)
+2. **Übertrage** jede Reihe in eine Textzeile aus `0` und `1` und ersetze damit die Liste `bild`.
+   Dein Bild darf ruhig größer als 5×5 werden — nimm so viele Zeilen und Spalten, wie du magst.
+   Wichtig ist nur, dass **alle Zeilen gleich lang** sind.
+3. **Führ es aus** und schau, ob dein Motiv erscheint. Stimmt etwas nicht, vergleich Reihe für
+   Reihe mit deiner Skizze.
+
+Zeig dein Werk gern deiner Banknachbarin oder deinem Banknachbarn — und versucht zu erraten, was
+das jeweils andere Bild darstellt.
+:::
+
+::: {.callout-caution}
+## Challenge: Mehr als nur Schwarz und Weiß
+
+Mit einem Bit pro Pixel kennt dein Bild nur zwei Zustände: schwarz oder weiß. Was, wenn du
+**Graustufen** willst? Dann brauchst du pro Pixel **mehr Möglichkeiten** — also mehr Bits.
+
+Das folgende Programm benutzt für jedes Pixel eine **Ziffer von 0 bis 9**: `0` ist ganz hell,
+`9` ist ganz dunkel. Eine kleine „Palette" ordnet jeder Ziffer ein passendes Zeichen zu.
+Sag wieder voraus, was herauskommt — und führ es dann aus.
+
+```python
+stufen = " .:-=+*#%@"   # von hell (0) bis dunkel (9)
+
+bild = [
+    "0001000",
+    "0012100",
+    "0123210",
+    "1234321",
+    "0123210",
+    "0012100",
+    "0001000",
+]
+
+for zeile in bild:
+    for ziffer in zeile:
+        print(stufen[int(ziffer)], end="")
+    print()
+```
+
+`stufen[int(ziffer)]` heißt: „Nimm aus der Palette das Zeichen an der Stelle, die zu dieser
+Ziffer gehört." Eine `0` holt das erste Zeichen (Leerzeichen), eine `4` das fünfte usw.
+
+Genau so funktioniert ein echtes Graustufenbild — nur dass dort jedes Pixel **256 Stufen**
+hat, von 0 bis 255. Das ist die Spanne, die in **ein Byte** passt. Und ein Farbfoto? Speichert
+pro Pixel **drei** solcher Bytes: für Rot, Grün und Blau. Mehr Bits, mehr Möglichkeiten — das
+Prinzip bleibt dasselbe.
+:::
+
+Damit schließt sich der Kreis. Du hast eine geheime Binär-Nachricht entschlüsselt, Bits zu Zahlen
+zusammengesetzt, Zahlen zu Buchstaben gemacht, Pixel zu Bildern — und am Ende dem Computer selbst
+die Anweisung gegeben, ein Bild zu malen. Auf jeder Stufe galt dasselbe: **Alles ist Zahl.**
